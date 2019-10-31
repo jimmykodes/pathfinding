@@ -19,8 +19,8 @@ neighbors = [
 ]
 
 queue = MazeQueue()
-queue.put(maze.start, 0)
-last, distance = queue.pop()
+queue.put(maze.start)
+last = queue.pop()
 finished = []
 steps = 0
 while not last.is_end:
@@ -28,9 +28,10 @@ while not last.is_end:
     for neighbor in neighbors:
         n = getattr(last, neighbor)
         if n is not None and n not in finished:
-            queue.put(n, max((abs(n.x - last.x), abs(n.y - last.y))) + distance)
+            n.distance = max((abs(n.x - last.x), abs(n.y - last.y))) + last.distance
+            queue.put(n)
     finished.append(last)
-    last, distance = queue.pop()
+    last = queue.pop()
 print('Finished')
-print(f'Total distance: {distance}')
+print(f'Total distance: {last.distance}')
 print(f'Number of cycles: {steps}')
