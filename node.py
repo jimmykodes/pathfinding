@@ -6,6 +6,7 @@ class Node:
         self.bottom_node = None
         self.left_node = None
         self.right_node = None
+        self.is_end = False
 
     def __str__(self):
         return f"Node at ({self.x}, {self.y})"

@@ -36,6 +36,7 @@ class Maze:
                     elif i == self.height - 1:
                         # in the bottom row
                         self.end = n
+                        n.is_end = True
                     if left_node is not None:
                         left_node.right_node = n
                         n.left_node = left_node
