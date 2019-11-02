@@ -6,8 +6,11 @@ class Node:
         self.bottom_node = None
         self.left_node = None
         self.right_node = None
+        self.is_start = False
         self.is_end = False
-        self.distance = 0
+        self.distance = float('inf')
+        self.via = None
+
 
     def __str__(self):
         return f"Node at ({self.x}, {self.y})"

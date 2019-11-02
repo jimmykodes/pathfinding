@@ -33,6 +33,7 @@ class Maze:
                     n = Node(j, i)
                     if i == 0:
                         self.start = n
+                        n.is_start = True
                         n.distance = 0
                     elif i == self.height - 1:
                         # in the bottom row

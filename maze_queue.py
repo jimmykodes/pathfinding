@@ -1,10 +1,24 @@
+class QueueException(Exception):
+    pass
+
+
 class MazeQueue:
     def __init__(self):
-        self.queue = []
+        self.queue = {}
 
     def put(self, node):
-        self.queue.append(node)
+        try:
+            old = self.queue[f'{node.x}|{node.y}']
+            if node.distance < old.distance:
+                self.queue[f'{node.x}|{node.y}'] = node
+        except KeyError:
+            self.queue[f'{node.x}|{node.y}'] = node
 
     def pop(self):
-        self.queue = list(sorted(self.queue, key=lambda node: node.distance, reverse=True))
-        return self.queue.pop()
+        if self.empty():
+            raise QueueException('Queue is empty')
+        shortest = min(self.queue.values(), key=lambda n: n.distance)
+        return self.queue.pop(f'{shortest.x}|{shortest.y}')
+
+    def empty(self):
+        return not bool(self.queue)
