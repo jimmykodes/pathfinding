@@ -43,8 +43,19 @@ print(f'Number of cycles: {steps}')
 green = np.array(img)
 while last is not None:
     prev = last.via
-    green[last.y][last.x] = [0, 255, 0]
-    last = last.via
+    x = last.x
+    y = last.y
+    if prev:
+        while x != prev.x or y != prev.y:
+            green[y][x] = [0, 255, 0]
+            if x != prev.x:
+                x += 1 if x < prev.x else -1
+            if y != prev.y:
+                y += 1 if y < prev.y else -1
+    last = prev
+
+# color the start
+green[maze.start.y][maze.start.x] = [0, 255, 0]
 
 i = Image.fromarray(green)
 with open('solved.png', 'wb') as f:
