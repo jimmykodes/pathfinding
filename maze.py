@@ -8,6 +8,8 @@ class Maze:
         self.end = None
         self.height = maze_data.shape[0]
         self.width = maze_data.shape[1]
+        self.node_count = 0
+        self.walkable_tile_count = 0
 
         left_node = None
         top_nodes = [None] * self.width
@@ -25,12 +27,14 @@ class Maze:
                     'top': self.is_walkable(i - 1, j),
                     'bottom': self.is_walkable(i + 1, j)
                 }
+                self.walkable_tile_count += 1
                 if neighbors['left'] and neighbors['right'] and not neighbors['top'] and not neighbors['bottom']:
                     continue
                 elif neighbors['top'] and neighbors['bottom'] and not neighbors['right'] and not neighbors['left']:
                     continue
                 else:
                     n = Node(j, i)
+                    self.node_count += 1
                     if i == 0:
                         self.start = n
                         n.is_start = True
